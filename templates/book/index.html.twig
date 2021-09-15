@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div id="app"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        window.categories = {{ categories|jsonld }}
+        {% if currentCategoryId is defined %}
+            window.currentCategoryId = '{{ currentCategoryId|e('js') }}'
+        {% else %}
+            window.currentCategoryId = null
+        {% endif %}
+        {% if currentBookId is defined %}
+            window.currentBookId = '{{ currentBookId|e('js') }}'
+        {% else %}
+            window.currentBookId = null
+        {% endif %}
+    </script>
+
+    {{ encore_entry_script_tags('books') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {{ encore_entry_link_tags('books') }}
+{% endblock %}

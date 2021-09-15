@@ -1,20 +1,39 @@
-# Sample PHP App
+# Bookstore - Sample PHP App
 
-This is a sample API project made using:
+## Technology
 
-- [Symfony](https://symfony.com/)
-- [API Platform](https://api-platform.com/docs/core/)
-- [Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html#getting-started-with-doctrine)
-- [php-fpm](https://hub.docker.com/_/php)
-- [nginx](https://hub.docker.com/_/nginx)
-- [mysql](https://hub.docker.com/_/mysql)
-- [adminer](https://hub.docker.com/_/adminer)
-- [coding standards](https://github.com/slevomat/coding-standard)
-- [PSR-12](https://www.php-fig.org/psr/psr-12/)
+### Backend
 
-## Installation
+-   [Symfony](https://symfony.com/)
+-   [API Platform](https://api-platform.com/docs/core/)
+-   [Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html#getting-started-with-doctrine)
+-   [PHP-fpm 8](https://hub.docker.com/_/php)
+-   [Nginx](https://hub.docker.com/_/nginx)
+-   [MySql 8](https://hub.docker.com/_/mysql)
+-   [Adminer](https://hub.docker.com/_/adminer)
+-   [Composer / Packagist](https://packagist.org/)
+-   [Docker / Docker compose](https://www.docker.com/)
 
-JWT PKI
+### Frontend
+
+-   [Vue.js 3](https://v3.vuejs.org/guide/introduction.html#what-is-vue-js)
+-   [Typescript](https://www.typescriptlang.org/)
+-   [SASS](https://sass-lang.com/)
+-   [Bootstrap 5](https://getbootstrap.com/)
+-   [Bootstrap icons](https://icons.getbootstrap.com/#icons)
+-   [Symfony Encore Webpack](https://symfony.com/doc/current/frontend.html#encore-documentation)
+-   [Yarn](https://yarnpkg.com/)
+
+## Development flow
+
+### Install dependencies
+
+```sh
+composer install
+yarn install
+```
+
+### Create JWT PKI
 
 ```sh
 mkdir -p config/jwt
@@ -27,11 +46,36 @@ setfacl -dR -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
 chmod 644
 ```
 
-## Updates
+### Create & Initialize Databaze
+
+-   setup database connection url as env variable `DATABASE_URL` (see .env for more details)
+-   create database `php bin/console doctrine:database:create`
+-   create database tables structure `php bin/console doctrine:migrations:execute`
+
+### Run application
+
+```sh
+docker-compose up -d
+symfony serve --allow-http -d
+yarn dev-server --hot
+```
+
+### Code quality
+
+-   [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+-   [coding standards](https://github.com/slevomat/coding-standard)
+-   [PHPStan](https://github.com/phpstan/phpstan)
+
+```sh
+php vendor/bin/phpcs
+php vendor/bin/phpcbf
+php vendor/bin/phpstan analyse
+```
+
+### Updates
 
 ```sh
 composer outdated
 composer recipes
+yarn upgrade
 ```
-
-docker exec -it php_api-php_1 /bin/sh
