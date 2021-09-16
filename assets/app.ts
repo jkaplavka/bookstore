@@ -18,7 +18,7 @@ declare module '@vue/runtime-core' {
 
 declare global {
     interface Window {
-        currentCategoryId: string | null
+        currentCategoryId?: string
         currentBookId: string | null
         categories: any
     }

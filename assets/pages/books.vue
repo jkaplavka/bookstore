@@ -14,7 +14,10 @@
 
                 <!-- Content-->
                 <section class="col-10 py-4 bg-light">
-                    <component :is="currentComponent" />
+                    <component
+                        :is="currentComponent"
+                        v-bind="currentComponentProps"
+                    />
                 </section>
             </div>
         </div>
@@ -32,6 +35,7 @@ import {
     getCurrentCategoryId,
 } from '../services/page-context'
 import { fetchCategories } from '../services/categories'
+import { fetchBooks } from '../services/books'
 
 export default defineComponent({
     name: 'Books',
@@ -46,15 +50,42 @@ export default defineComponent({
         categories: [],
         currentBookId: getCurrentBookId(),
         currentCategoryId: getCurrentCategoryId(),
+        loading: false,
     }),
     computed: {
         currentComponent() {
             return this.currentBookId !== null ? BookDetail : BooksList
         },
+        currentComponentProps() {
+            return this.currentBookId !== null
+                ? {
+                      bookId: this.currentBookId,
+                  }
+                : {
+                      books: this.books,
+                  }
+        },
     },
     async created() {
         const response = await fetchCategories()
         this.categories = response.data['hydra:member']
+        this.loadBooks(this.currentCategoryId)
+    },
+    methods: {
+        async loadBooks(category?: string) {
+            this.loading = true
+
+            let response
+            try {
+                response = await fetchBooks(category)
+                this.loading = false
+            } catch (error) {
+                this.loading = false
+                return
+            }
+
+            this.books = response.data['hydra:member']
+        },
     },
 })
 </script>

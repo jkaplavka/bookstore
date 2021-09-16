@@ -3,7 +3,7 @@
     <div class="container mt-1">
         <div class="d-flex justify-content-center row">
             <div class="col-md-10">
-                <book-item v-for="book in books" :key="book.id" />
+                <book-item v-for="book in books" :key="book.id" :book="book" />
             </div>
         </div>
     </div>
@@ -20,21 +20,11 @@ export default defineComponent({
         BookItem,
         Pagination,
     },
-    data: () => ({
-        books: [
-            {
-                id: '1',
-            },
-            {
-                id: '2',
-            },
-            {
-                id: '3',
-            },
-            {
-                id: '4',
-            },
-        ],
-    }),
+    props: {
+        books: {
+            type: Array,
+            required: true,
+        },
+    },
 })
 </script>

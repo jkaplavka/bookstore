@@ -23,6 +23,7 @@
 -   [Bootstrap icons](https://icons.getbootstrap.com/#icons)
 -   [Symfony Encore Webpack](https://symfony.com/doc/current/frontend.html#encore-documentation)
 -   [Yarn](https://yarnpkg.com/)
+-   [Lodash](https://lodash.com/)
 
 ## Development flow
 

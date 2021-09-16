@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Entity\Book;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\Category;
 use App\Repository\Book\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,6 +37,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         'swagger_definition_name' => 'Write',
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'category' => 'exact',
+    'name' => 'partial',
+])]
 #[ORM\Entity(
     repositoryClass: BookRepository::class
 )]
@@ -82,6 +88,7 @@ class Book
     #[ORM\ManyToMany(targetEntity: Format::class)]
     private Collection $formats;
 
+    #[Groups(['book:read'])]
     #[ORM\Column(type: 'string', length: 255, nullable:true)]
     private ?string $imageFileName;
 
