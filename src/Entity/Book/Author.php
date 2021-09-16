@@ -2,10 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace App\Entity;
+namespace App\Entity\Book;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Book\Book;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,42 +18,34 @@ use Symfony\Component\Validator\Constraints as Assert;
     collectionOperations: [
         'get' => [
             'normalization_context' => [
-                'groups' => ['category:read'],
+                'groups' => ['author:read'],
             ],
         ],
     ],
     itemOperations: [
         'get',
     ],
-    normalizationContext:[
-        'groups' => ['category:read'],
-        'swagger_definition_name' => 'Read',
-    ],
-    denormalizationContext:[
-        'groups' => ['category:write'],
-        'swagger_definition_name' => 'Write',
-    ]
 )]
 #[ORM\Entity(
     repositoryClass: CategoryRepository::class
 )]
-class Category
+class Author
 {
 
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    #[Groups(['category:read', 'book:read'])]
+    #[Groups(['author:read', 'book:read'])]
     private UuidInterface $id;
 
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
-    #[Groups(['category:read', 'book:read'])]
+    #[Groups(['author:read', 'book:read'])]
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy:'category', targetEntity: Book::class)]
+    #[ORM\OneToMany(mappedBy:'author', targetEntity: Book::class)]
     private Collection $books;
 
     public function __construct()

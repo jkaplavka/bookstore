@@ -2,13 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace App\Entity;
+namespace App\Entity\Book;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Book\Book;
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
@@ -19,48 +15,32 @@ use Symfony\Component\Validator\Constraints as Assert;
     collectionOperations: [
         'get' => [
             'normalization_context' => [
-                'groups' => ['category:read'],
+                'groups' => ['format:read'],
             ],
         ],
     ],
     itemOperations: [
         'get',
     ],
-    normalizationContext:[
-        'groups' => ['category:read'],
-        'swagger_definition_name' => 'Read',
-    ],
-    denormalizationContext:[
-        'groups' => ['category:write'],
-        'swagger_definition_name' => 'Write',
-    ]
 )]
 #[ORM\Entity(
-    repositoryClass: CategoryRepository::class
+    repositoryClass: FormatRepository::class
 )]
-class Category
+class Format
 {
 
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    #[Groups(['category:read', 'book:read'])]
+    #[Groups(['format:read', 'book:read'])]
     private UuidInterface $id;
 
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
-    #[Groups(['category:read', 'book:read'])]
+    #[Groups(['format:read', 'book:read'])]
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
-
-    #[ORM\OneToMany(mappedBy:'category', targetEntity: Book::class)]
-    private Collection $books;
-
-    public function __construct()
-    {
-        $this->books = new ArrayCollection();
-    }
 
     public function getId(): UuidInterface
     {
@@ -77,11 +57,6 @@ class Category
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getBooks(): Collection
-    {
-        return $this->books;
     }
 
 }

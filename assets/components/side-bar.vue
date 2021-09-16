@@ -13,14 +13,27 @@
         <span class="fs-5 d-none d-sm-inline text-white mb-2">Categories</span>
         <ul class="navbar-nav flex-column">
             <li class="nav-item ps-3">
-                <a class="nav-link active" href="/">Best Sellers</a>
+                <a
+                    :class="{
+                        'nav-link': true,
+                        active: currentCategoryId === null,
+                    }"
+                    href="/"
+                    >Best Sellers</a
+                >
             </li>
             <li
                 v-for="category in categories"
                 :key="category['@id']"
                 class="nav-item ps-3"
             >
-                <a class="nav-link" :href="`/category/${category.id}`">
+                <a
+                    :class="{
+                        'nav-link': true,
+                        active: currentCategoryId === category.id,
+                    }"
+                    :href="`/category/${category.id}`"
+                >
                     {{ category.name }}
                 </a>
             </li>
@@ -37,6 +50,10 @@ export default defineComponent({
         categories: {
             type: Array,
             required: true,
+        },
+        currentCategoryId: {
+            type: String,
+            default: null,
         },
     },
 })

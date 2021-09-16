@@ -1,15 +1,10 @@
 <template>
     <pagination />
     <div class="container mt-1">
-        <div
-            class="
-                row
-                gx-4 gx-lg-5
-                row-cols-2 row-cols-md-3 row-cols-xl-4
-                justify-content-center
-            "
-        >
-            <book-item v-for="book in books" :key="book.id" />
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                <book-item v-for="book in books" :key="book.id" />
+            </div>
         </div>
     </div>
 </template>

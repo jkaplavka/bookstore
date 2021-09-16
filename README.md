@@ -4,12 +4,12 @@
 
 ### Backend
 
--   [Symfony](https://symfony.com/)
+-   [Symfony 5](https://symfony.com/)
 -   [API Platform](https://api-platform.com/docs/core/)
 -   [Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html#getting-started-with-doctrine)
--   [PHP-fpm 8](https://hub.docker.com/_/php)
+-   [PHP-FPM 8](https://hub.docker.com/_/php)
 -   [Nginx](https://hub.docker.com/_/nginx)
--   [MySql 8](https://hub.docker.com/_/mysql)
+-   [MySQL 8](https://hub.docker.com/_/mysql)
 -   [Adminer](https://hub.docker.com/_/adminer)
 -   [Composer / Packagist](https://packagist.org/)
 -   [Docker / Docker compose](https://www.docker.com/)

@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="fs-5 py-2">Best Sellers (4)</h1>
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-5 ps-0">
+                <h1 class="fs-3 py-2">Best Sellers (4)</h1>
             </div>
-            <div class="col">
+            <div class="col-md-5 pe-0">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
                         <li
