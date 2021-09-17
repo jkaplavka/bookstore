@@ -28,12 +28,11 @@
                     collapse
                     navbar-collapse
                     d-lg-flex
-                    justify-content-lg-between
+                    justify-content-lg-end
                 "
                 id="navbarToggler"
             >
-                <search />
-                <ul class="navbar-nav">
+                <ul class="navbar-nav d-flex">
                     <li class="nav-item pt-2">
                         <a class="nav-link" href="#">Admin</a>
                     </li>
@@ -48,12 +47,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Search from '@/components/search.vue'
 import CartWidget from '@/components/cart/widget.vue'
 
 export default defineComponent({
     name: 'NavBar',
-    components: { Search, CartWidget },
+    components: { CartWidget },
 })
 </script>
 

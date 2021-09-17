@@ -13,7 +13,7 @@
                 </div>
 
                 <!-- Content-->
-                <section class="col-10 py-4 bg-light">
+                <section class="col-10 pb-4 px-0 bg-light">
                     <component
                         :is="currentComponent"
                         v-bind="currentComponentProps"
@@ -26,7 +26,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import BooksList from '@/components/books-list/index.vue'
+import BooksList from '@/components/book-catalog/index.vue'
+// import SearchBooksEvent from '../components/books-list/events/SearchBooksEvent'
 import BookDetail from '@/components/book-detail/index.vue'
 import NavBar from '@/components/nav-bar.vue'
 import SideBar from '@/components/side-bar.vue'
@@ -35,7 +36,6 @@ import {
     getCurrentCategoryId,
 } from '../services/page-context'
 import { fetchCategories } from '../services/categories'
-import { fetchBooks } from '../services/books'
 
 export default defineComponent({
     name: 'Books',
@@ -46,11 +46,9 @@ export default defineComponent({
         SideBar,
     },
     data: () => ({
-        books: [],
         categories: [],
         currentBookId: getCurrentBookId(),
         currentCategoryId: getCurrentCategoryId(),
-        loading: false,
     }),
     computed: {
         currentComponent() {
@@ -59,33 +57,17 @@ export default defineComponent({
         currentComponentProps() {
             return this.currentBookId !== null
                 ? {
-                      bookId: this.currentBookId,
+                      currentBookIri: this.currentBookId,
                   }
                 : {
-                      books: this.books,
+                      categories: this.categories,
+                      currentCategoryId: this.currentCategoryId,
                   }
         },
     },
     async created() {
         const response = await fetchCategories()
         this.categories = response.data['hydra:member']
-        this.loadBooks(this.currentCategoryId)
-    },
-    methods: {
-        async loadBooks(category?: string) {
-            this.loading = true
-
-            let response
-            try {
-                response = await fetchBooks(category)
-                this.loading = false
-            } catch (error) {
-                this.loading = false
-                return
-            }
-
-            this.books = response.data['hydra:member']
-        },
     },
 })
 </script>

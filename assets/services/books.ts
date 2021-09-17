@@ -1,16 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { Category } from './categories'
 
-export function fetchBooks(category?: string): Promise<AxiosResponse> {
-    const params = new URLSearchParams()
-
-    if (category) {
-        params.append('category', category)
-    }
-
-    return axios.get('/api/books', { params })
-}
-
 export interface Book {
     '@id': string
     id: string
@@ -33,4 +23,25 @@ export interface Format {
     '@id': string
     id: string
     name: string
+}
+
+export function fetchBooks(
+    category?: string,
+    searchTerm?: string
+): Promise<AxiosResponse> {
+    const params = new URLSearchParams()
+
+    if (category) {
+        params.append('category', category)
+    }
+
+    if (searchTerm) {
+        params.append('name', searchTerm)
+    }
+
+    return axios.get('/api/books', { params })
+}
+
+export function fetchBook(iri: string): Promise<AxiosResponse> {
+    return axios.get(iri)
 }

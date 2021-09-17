@@ -1,7 +1,10 @@
 export interface Category {
     '@id': string
+    id: string
     name: string
 }
+
+export interface Categories extends Array<Category> {}
 
 interface Response {
     data: any

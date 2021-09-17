@@ -19,7 +19,7 @@
                         active: currentCategoryId === null,
                     }"
                     href="/"
-                    >Best Sellers</a
+                    >All Books</a
                 >
             </li>
             <li
