@@ -19,14 +19,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     collectionOperations: [
-        'get' => [
-            'normalization_context' => [
-                'groups' => ['book:read'],
-            ],
-        ],
+        'get',
+        'post',
     ],
     itemOperations: [
         'get',
+        'put',
     ],
     normalizationContext:[
         'groups' => ['book:read'],
@@ -56,35 +54,40 @@ class Book
 
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 200)]
-    #[Groups(['book:read'])]
+    #[Groups(['book:read', 'book:write'])]
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[Groups(['book:read'])]
+    #[Groups(['book:read', 'book:write'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description;
 
-    #[Groups(['book:read'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $year;
-
-    #[Groups(['book:read'])]
+    #[Assert\NotBlank()]
+    #[Assert\GreaterThanOrEqual(value: 0)]
+    #[Assert\Type(type: 'float')]
+    #[Groups(['book:read', 'book:write'])]
     #[ORM\Column(type: 'float')]
     private float $price;
 
-    #[Groups(['book:read'])]
+    #[Assert\NotBlank()]
+    #[Assert\GreaterThanOrEqual(value: 0)]
+    #[Groups(['book:read', 'book:write'])]
     #[ORM\Column(type: 'integer')]
     private int $stockQuantity;
 
-    #[Groups(['book:read'])]
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy:'books')]
+    #[Assert\NotBlank()]
+    #[Groups(['book:read', 'book:write'])]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy:'books', fetch:'EAGER')]
     private Category $category;
 
-    #[Groups(['book:read'])]
-    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy:'books')]
+    #[Assert\NotBlank()]
+    #[Groups(['book:read', 'book:write'])]
+    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy:'books', fetch:'EAGER')]
     private Author $author;
 
-    #[Groups(['book:read'])]
+    #[Assert\NotBlank()]
+    #[Assert\Count(min: 1)]
+    #[Groups(['book:read', 'book:write'])]
     #[ORM\ManyToMany(targetEntity: Format::class)]
     private Collection $formats;
 
@@ -191,14 +194,20 @@ class Book
         return $this->formats;
     }
 
-    public function getYear(): ?int
+    public function addFormat(Format $format): self
     {
-        return $this->year;
+        if (!$this->formats->contains($format)) {
+            $this->formats[] = $format;
+        }
+
+        return $this;
     }
 
-    public function setYear(?int $year): self
+    public function removeFormat(Format $format): self
     {
-        $this->year = $year;
+        if ($this->formats->contains($format)) {
+            $this->formats->removeElement($format);
+        }
 
         return $this;
     }

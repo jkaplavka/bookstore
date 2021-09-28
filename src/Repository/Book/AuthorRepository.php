@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Book;
 
-use App\Entity\Author;
+use App\Entity\Book\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

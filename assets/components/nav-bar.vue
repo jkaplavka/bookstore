@@ -34,7 +34,7 @@
             >
                 <ul class="navbar-nav d-flex">
                     <li class="nav-item pt-2">
-                        <a class="nav-link" href="#">Admin</a>
+                        <a class="nav-link" href="/admin">Admin</a>
                     </li>
                     <li class="nav-item">
                         <cart-widget />

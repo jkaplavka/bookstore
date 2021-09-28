@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <similiar-books />
+        <!-- <similiar-books /> -->
     </div>
 </template>
 
@@ -55,8 +55,7 @@ import { truncate } from 'lodash'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
 import SimiliarBooks from '@/components/book-detail/similiar-books.vue'
 import Loading from '@/components/loading.vue'
-import { Book, fetchBook } from '../../services/books'
-import { formatPrice } from '../../helpers/locale'
+import { Book, fetchBook, formatPrice } from '../../services/books'
 
 export default defineComponent({
     name: 'BookDetail',

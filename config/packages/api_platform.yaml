@@ -1,4 +1,10 @@
 api_platform:
+    title: 'Bookstore API'
+    description: 'API for sample PHP / Vue.js 3 App'
+    version: '1.0.1'
+    # absolute_url: false
+    show_webby: false
+
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:

@@ -6,6 +6,9 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import { Author } from './services/authors'
+import { Category } from './services/categories'
+import { Format } from './services/formats'
 import './styles/app.scss'
 
 require('bootstrap')
@@ -20,6 +23,8 @@ declare global {
     interface Window {
         currentCategoryId?: string
         currentBookId: string | null
-        categories: any
+        categories: Array<Category>
+        authors: Array<Author>
+        formats: Array<Format>
     }
 }

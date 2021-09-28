@@ -1,29 +1,28 @@
 Frontend:
     ☐ books list
         ✔ search @done(21-09-17 11:46)
-        ☐ sort by
-        ☐ filters persistance
+        ☐ sort by book name, price
         ☐ more filters
+            ☐ filters persistance
             ☐ price range
 
     ☐ detail page
-        ☐ loading
+        ✔ loading @done(21-09-20 13:30)
         ☐ discover more
     ☐ pagination
     ☐ author page
-    ☐ sort by book name, price
-    ☐ filter price range
 
 Admin:
-    ☐ UI page
+    ✔ UI page @done(21-09-24 13:42)
     ☐ login / logout
     ☐ list books
-    ☐ create book form
+    ✔ create book form @done(21-09-24 13:42)
+    ☐ update book
     ☐ book draft / publish
 
 Devops:
-    ☐ dockerization backend
-    ☐ dockerization frontend
+    ☐ backend dockerization
+    ☐ frontend dockerization
 
 Shopping Cart:
     ☐ cart widget

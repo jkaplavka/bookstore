@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div id="app"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        {% if authors is defined %}
+            window.authors = {{ authors|jsonld(['author:read']) }}
+        {% endif %}
+        {% if categories is defined %}
+            window.categories = {{ categories|jsonld(['category:read']) }}
+        {% endif %}
+        {% if formats is defined %}
+            window.formats = {{ formats|jsonld(['format:read']) }}
+        {% endif %}
+    </script>
+
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {{ encore_entry_link_tags('admin') }}
+{% endblock %}

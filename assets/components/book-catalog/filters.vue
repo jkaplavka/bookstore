@@ -11,19 +11,19 @@
         />
 
         <!-- Sort By -->
-        <div class="input-group me-2">
+        <!-- <div class="input-group me-2">
             <label class="input-group-text" for="sortBySelect"> Sort By </label>
             <select class="form-select" id="sortBySelect">
                 <option selected value="name-asc">Name</option>
                 <option value="price-asc">Price - Low to High</option>
                 <option value="price-desc">Price - High to Low</option>
             </select>
-        </div>
+        </div> -->
 
         <!-- More filters -->
-        <button class="btn btn-outline-secondary" type="submit">
+        <!-- <button class="btn btn-outline-secondary" type="submit">
             <i class="bi-funnel me-1"></i>
-        </button>
+        </button> -->
     </form>
 </template>
 

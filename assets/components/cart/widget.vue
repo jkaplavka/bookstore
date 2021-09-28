@@ -1,5 +1,5 @@
 <template>
-    <a class="nav-link" href="/cart">
+    <a class="nav-link" href="/">
         <button class="btn btn-outline-light" type="submit">
             <i class="bi-cart-fill me-1"></i>
             Cart

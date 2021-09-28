@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Entity\Book;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\Book\FormatRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;

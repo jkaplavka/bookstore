@@ -7,7 +7,7 @@
     {{ parent() }}
 
     <script>
-        window.categories = {{ categories|jsonld }}
+        window.categories = {{ categories|jsonld(['category:read']) }}
         {% if currentCategoryId is defined %}
             window.currentCategoryId = '{{ currentCategoryId|e('js') }}'
         {% else %}

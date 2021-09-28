@@ -77,7 +77,7 @@
                     class="btn btn-outline-primary btn-sm mt-2"
                     type="button"
                 >
-                    Add to wishlist
+                    Add to cart
                 </button>
             </div>
         </div>
@@ -87,8 +87,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { truncate } from 'lodash'
-import { Book } from '../../services/books'
-import { formatPrice } from '../../helpers/locale'
+import { Book, formatPrice } from '../../services/books'
 
 export default defineComponent({
     name: 'BooksListItem',
@@ -100,7 +99,7 @@ export default defineComponent({
     },
     computed: {
         price() {
-            return formatPrice(this.book.price)
+            return formatPrice(this.book.price ?? 0)
         },
         image() {
             return this.book.imageFileName !== null

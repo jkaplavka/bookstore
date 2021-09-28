@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace App\Entity\Book;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CategoryRepository;
+use App\Repository\Book\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
 )]
 #[ORM\Entity(
-    repositoryClass: CategoryRepository::class
+    repositoryClass: AuthorRepository::class
 )]
 class Author
 {
@@ -45,7 +45,7 @@ class Author
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy:'author', targetEntity: Book::class)]
+    #[ORM\OneToMany(mappedBy:'author', targetEntity: Book::class, fetch: 'EXTRA_LAZY')]
     private Collection $books;
 
     public function __construct()
