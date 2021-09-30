@@ -58,12 +58,18 @@
                 >
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Books</div>
-                            <a class="nav-link" href="/admin/books/add">
+                            <!-- <div class="sb-sidenav-menu-heading">Books</div> -->
+                            <a class="nav-link" href="/admin">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-chart-area"></i>
+                                </div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="/admin/books">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-book-open"></i>
                                 </div>
-                                New book
+                                Books
                             </a>
                         </div>
                     </div>
@@ -89,7 +95,10 @@
 
 <script lang="ts">
 import page from 'page'
-import { defineComponent, markRaw } from 'vue'
+import { defineComponent, markRaw, PropType } from 'vue'
+import { Category } from '../services/categories'
+import { Author } from '../services/authors'
+import { Format } from '../services/formats'
 
 interface IRoutes {
     [index: string]: string
@@ -101,6 +110,9 @@ export default defineComponent({
     data: () => ({
         currentComponent: null,
         currentComponentProps: {},
+        authors: [] as PropType<Array<Author>>,
+        categories: [] as PropType<Array<Category>>,
+        formats: [] as PropType<Array<Format>>,
         routes: {
             '/admin': '/dashboard/index',
             '/admin/books': '/books/index',

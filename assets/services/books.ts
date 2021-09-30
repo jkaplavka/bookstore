@@ -17,25 +17,31 @@ export interface Book {
 }
 
 export function formatPrice(price: number): string {
-    console.log(price)
     return price.toLocaleString('sk-SK', { minimumFractionDigits: 2 })
 }
 
 export function fetchBooks(
-    category?: string,
+    page?: string,
+    categories?: Array<string>,
     searchTerm?: string
 ): Promise<AxiosResponse> {
     const params = new URLSearchParams()
 
-    if (category) {
-        params.append('category', category)
+    if (page) {
+        params.append('page', page)
+    }
+
+    if (categories && categories.length > 0) {
+        categories.map(category => {
+            params.append('category[]', category)
+        })
     }
 
     if (searchTerm) {
         params.append('name', searchTerm)
     }
 
-    return axios.get('/api/books', { params })
+    return axios.get('/api/books?page=1', { params })
 }
 
 export function fetchBook(iri: string): Promise<AxiosResponse> {

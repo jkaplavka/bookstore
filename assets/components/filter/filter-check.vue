@@ -3,42 +3,37 @@
         <button
             class="btn btn-sm btn-outline-secondary dropdown-toggle"
             type="button"
-            id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
-            data-bs-auto-close="outside"
+            data-bs-auto-close="inside"
             aria-expanded="false"
         >
-            <i class="bi-funnel me-1"></i>
+            <i
+                :class="[
+                    'me-1',
+                    checked.length === 0 ? 'bi-funnel' : 'bi-funnel-fill',
+                ]"
+            ></i>
         </button>
         <div class="dropdown-menu">
-            <form id="myform" class="px-2 py-2">
+            <form :id="id" class="px-2 py-2" @submit.prevent="onSubmit">
                 <div class="mb-3">
-                    <div class="form-check">
+                    <div
+                        v-for="(value, index) in values"
+                        :key="index"
+                        class="form-check"
+                    >
                         <input
                             type="checkbox"
                             class="form-check-input"
-                            id="dropdownCheck"
+                            :id="value.value"
+                            :value="value.value"
+                            v-model="checked"
                         />
                         <label
                             class="form-check-label fw-normal"
-                            for="dropdownCheck"
+                            :for="value.value"
                         >
-                            Category 1
-                        </label>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="dropdownCheck2"
-                        />
-                        <label
-                            class="form-check-label fw-normal"
-                            for="dropdownCheck2"
-                        >
-                            Category 2
+                            {{ value.label }}
                         </label>
                     </div>
                 </div>
@@ -48,7 +43,7 @@
             <div class="d-grid m-2">
                 <button
                     type="submit"
-                    form="myform"
+                    :form="id"
                     class="btn btn-sm btn-outline-secondary"
                 >
                     Filter
@@ -60,8 +55,38 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 
 export default defineComponent({
     name: 'FilterComponent',
+    data: () => ({
+        id: uuidv4(),
+        checked: [] as string[],
+    }),
+    props: {
+        property: {
+            type: String,
+            required: true,
+        },
+        values: {
+            type: Array,
+            required: true,
+        },
+        selected: {
+            type: Array as PropType<Array<string>>,
+            defautl: [],
+        },
+    },
+    created() {
+        this.checked = this.selected!
+    },
+    methods: {
+        onSubmit() {
+            this.$emit('filter-changed', {
+                values: this.checked,
+                property: this.property,
+            })
+        },
+    },
 })
 </script>

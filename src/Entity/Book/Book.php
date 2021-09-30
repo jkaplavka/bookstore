@@ -33,7 +33,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext:[
         'groups' => ['book:write'],
         'swagger_definition_name' => 'Write',
-    ]
+    ],
+    paginationItemsPerPage: 5,
+    order: [ 'name' => 'ASC' ]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
     'category' => 'exact',

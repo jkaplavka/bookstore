@@ -81,8 +81,12 @@ export default defineComponent({
 
             let response
             try {
+                const categories = this.currentCategoryId
+                    ? [this.currentCategoryId]
+                    : []
                 response = await fetchBooks(
-                    this.currentCategoryId,
+                    undefined,
+                    categories,
                     this.searchTerm
                 )
                 this.loading = false

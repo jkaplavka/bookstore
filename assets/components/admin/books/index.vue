@@ -3,7 +3,7 @@
         <loading v-show="loading" />
         <div v-if="!loading">
             <breadcrumbs title="Books" :path="breadcrumbs" />
-            <book-list />
+            <book-list :categories="categories" />
             <!-- <book-form
                         :authors="authors"
                         :categories="categories"
@@ -67,7 +67,6 @@ export default defineComponent({
         this.authors = (await fetchAuthors()).data['hydra:member']
         this.categories = (await fetchCategories()).data['hydra:member']
         this.formats = (await fetchFormats()).data['hydra:member']
-
         this.loadBook()
     },
     methods: {
